@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import { getData } from '../redux/reducers/users'
 import Head from './head'
 
-class Dummy extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 0
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <Head title="Hello" />
-        <div> Hello World {this.state.counter} </div>
-      </div>
-    )
-  }
+const Dummy = (props) => {
+  const [counter] = useState(4)
+  const { getData: getDataProps } = props
+  useEffect(() => {
+    getDataProps();
+  }, [getDataProps])
+  return (
+    <div>
+      <Head title="Hello" />
+      <div> Hello World {counter} </div>
+      <div> {JSON.stringify(props.users)} </div>
+      <img src={`/tracker/${counter}.gif`} alt="tracker" />
+    </div>
+  )
 }
+
 
 Dummy.propTypes = {}
 
-const mapStateToProps = () => ({})
+const mapStateToProps = state => ({
+  users: state.users.list
+})
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getData }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dummy)
