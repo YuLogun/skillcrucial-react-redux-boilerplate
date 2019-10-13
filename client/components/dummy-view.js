@@ -16,7 +16,26 @@ const Dummy = (props) => {
       <Head title="Hello" />
       <div> {JSON.stringify(props.isRequesting)} </div>
       <div> Hello World {counter} </div>
-      <div> {JSON.stringify(props.users)} </div>
+      <table>
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Company</td>
+          <td>Salary</td>
+          <td>Age</td>
+        </tr>
+        {
+          props.users.map(it => (
+            <tr>
+              <td>{it.name}</td>
+              <td>{it.email}</td>
+              <td>{it.company}</td>
+              <td>{it.salary}</td>
+              <td>{it.age}</td>
+            </tr>
+          ))
+        }
+      </table>
       <img src={`/tracker/${counter}.gif`} alt="tracker" />
     </div>
   )
