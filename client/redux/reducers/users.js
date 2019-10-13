@@ -1,9 +1,13 @@
 /* import { dispatch } from "rxjs/internal/observable/pairs" */
 
 const GET_DATA = 'skillcrucial/users/GET_DATA'
+const ERROR_HAPPENED = 'skillcrucial/users/ERROR_HAPPENED'
+const REQUEST_STARTED = 'skillcrucial/users/REQUEST_STARTED'
+const REQUEST_DONE = 'skillcrucial/users/REQUEST_DONE'
 
 const initialState = {
-  list: [{ name: 'test' }]
+  list: [],
+  isRequesting: false
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +15,17 @@ export default (state = initialState, action) => {
     case GET_DATA:
       return {
         ...state,
-        list: state.list.concat(action.list)
+        list: action.list
+      }
+    case REQUEST_STARTED:
+      return {
+        ...state,
+        isRequesting: true
+      }
+    case REQUEST_DONE:
+      return {
+        ...state,
+        isRequesting: false
       }
     default:
       return state
@@ -20,9 +34,22 @@ export default (state = initialState, action) => {
 
 export function getData() {
   return (dispatch) => {
-    dispatch({
-      type: GET_DATA,
-      list: [{ name: +(new Date()) }]
-    })
+    dispatch({ type: REQUEST_STARTED })
+    return fetch('/api/users')
+      .then(res => res.json())
+      .then((json) => {
+        dispatch({
+          type: GET_DATA,
+          list: json
+        })
+        dispatch({ type: REQUEST_DONE })
+      })
+      .catch((err) => {
+        dispatch({
+          type: ERROR_HAPPENED,
+          err
+        })
+        dispatch({ type: REQUEST_DONE })
+      })
   }
 }
