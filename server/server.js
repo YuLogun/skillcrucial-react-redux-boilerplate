@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser'
 import Html from '../client/html';
 import Variables from '../client/variables';
 
+const PAGE_SIZE = 10
 
 let connections = [];
 const clientVariables = Object.keys(process.env)
@@ -38,8 +39,10 @@ const getFakeUser = () => {
   return {
     name: faker.name.findName(),
     email: faker.internet.email(),
+    address: faker.address.country(),
     company: faker.company.companyName(),
     salary: faker.finance.amount(),
+    commerce: faker.commerce.department(),
     age: (faker.random.number() % 30) + 18
   }
 }
@@ -81,14 +84,15 @@ server.get('/tracker/:userId.gif', (req, res) => {
 })
 
 
-server.get('/api/users', (req, res) => {
+server.get('/api/users/:pageIndex', (req, res) => {
+  const { pageIndex } = req.params
   const fileName = `${__dirname}/tmp/data.json`;
   fs.readFile(
     fileName,
     (err, data) => {
       if (!err) {
         return res.json(
-          JSON.parse(data).splice(0, 10)
+          JSON.parse(data).slice(+pageIndex * PAGE_SIZE, (+pageIndex + 1) * PAGE_SIZE)
         )
       }
       const dataGenerated = new Array(100).fill(null).map(getFakeUser)
@@ -97,7 +101,7 @@ server.get('/api/users', (req, res) => {
         JSON.stringify(dataGenerated),
         () => {
           return res.json(
-            dataGenerated.slice(0, 10)
+            dataGenerated.slice(+pageIndex * PAGE_SIZE, (+pageIndex + 1) * PAGE_SIZE)
           )
         }
       )
