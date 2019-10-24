@@ -23,6 +23,6 @@ const mapStateToProps = state => ({
   isRequesting: state.users.isRequesting
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dummy)
