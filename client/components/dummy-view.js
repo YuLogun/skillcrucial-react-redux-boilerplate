@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-/* import { getData } from '../redux/reducers/users' */
 import Head from './head'
 
 const Dummy = () => {
@@ -10,7 +9,7 @@ const Dummy = () => {
   return (
     <div>
       <Head title="Hello" />
-      <div> Hello World {counter} </div>
+      <div> Hello World tyty {counter} </div>
     </div>
   )
 }
@@ -18,10 +17,7 @@ const Dummy = () => {
 
 Dummy.propTypes = {}
 
-const mapStateToProps = state => ({
-  users: state.users.list,
-  isRequesting: state.users.isRequesting
-})
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch)
 
