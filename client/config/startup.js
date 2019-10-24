@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
@@ -7,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 // const cookies = new Cookies();
 
 class Startup extends React.Component {
-  componentWillMount() { }
+  UNSAFE_componentWillMount() { }
 
   render() {
     return this.props.children;

@@ -15,7 +15,7 @@ const PAGE_SIZE = 10
 let connections = [];
 const clientVariables = Object.keys(process.env)
   .filter(key => key.indexOf('CLIENT') === 0)
-  .reduce((res, key) => (Object.assign({}, res, { [key]: process.env[key] })), {});
+  .reduce((res, key) => ({ ...res, [key]: process.env[key] }), {});
 
 
 const port = process.env.PORT || 3000;
@@ -68,7 +68,6 @@ server.get('/tracker/:userId.gif', (req, res) => {
     ipAddress: req.connection.remoteAddress,
     userId
   }
-  console.log(dataObj)
   const fileName = `${__dirname}/logs/${userId}_${dataObj.date}.json`;
   return fs.writeFile(
     fileName,
