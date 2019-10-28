@@ -7,6 +7,16 @@ import Head from './head'
 const Dummy = () => {
   const [counter, setCounter] = useState(0)
   const [date, setDate] = useState(new Date())
+  const [text, setText] = useState({
+    toggled1: true,
+    toggled2: false
+  })
+  const toggle = () => {
+    setText({
+      toggled1: !text.toggled1,
+      toggled2: !text.toggled2
+    })
+  }
   useEffect(
     () => {
       const intervalId = setInterval(
@@ -24,7 +34,8 @@ const Dummy = () => {
         1000
       )
       return () => { clearInterval(intervalId) }
-    }
+    },
+    [date]
   )
   return (
     <div>
@@ -54,6 +65,23 @@ const Dummy = () => {
       </div>
       <div className="date">
         <h3>It is {date.toLocaleTimeString()}</h3>
+      </div>
+      <div className="toggle">
+        {
+          text.toggled1 && (
+          <h2>Text 1 is shown</h2>
+          )
+        }
+        {
+          text.toggled2 && (
+          <h2>Text 2 is shown</h2>
+          )
+        }
+        <button
+          type="button"
+          onClick={toggle}
+        >Toggle me gently
+        </button>
       </div>
     </div>
   )
