@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -69,7 +70,7 @@ const Dummy = () => {
       <div className="toggle">
         {
           text.toggled1 && (
-          <h2>Text 1 is shown</h2>
+            <h2>Text 1 is shown</h2>
           )
         }
         {
@@ -83,6 +84,9 @@ const Dummy = () => {
         >Toggle me gently
         </button>
       </div>
+      <a href="/dashboard">go dashboard</a>
+      <br />
+      <Link to="/dashboard">GO DASHBOARD</Link>
     </div>
   )
 }

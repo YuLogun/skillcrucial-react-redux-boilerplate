@@ -86,7 +86,7 @@ export default (props) => {
           <Switch>
             <Route exact path="/" component={() => <DummyView />} />
             <Route exact path="/dashboard" component={() => <Home />} />
-            <Route exact path="/salo/*" component={() => <Home />} />
+            <Route exact path="/hey/you/*" component={() => <Home />} />
             <PrivateRouteConnected exact path="/hidden-route" component={() => <DummyView />} />
             <Route component={() => <NotFound />} />
           </Switch>
