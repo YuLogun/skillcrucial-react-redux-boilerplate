@@ -87,6 +87,8 @@ const Dummy = () => {
       <a href="/dashboard">go dashboard</a>
       <br />
       <Link to="/dashboard">GO DASHBOARD</Link>
+      <hr />
+      <Link to="storage">go storage</Link>
     </div>
   )
 }
